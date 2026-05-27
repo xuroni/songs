@@ -8,11 +8,11 @@
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' type='image/x-icon'/>
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' sizes='32x32' type='image/png'/>
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' sizes='16x16' type='image/png'/>
-        
+    
     <title>Gauranga</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        
+    
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -20,11 +20,14 @@
             --card-border: rgba(255, 255, 255, 0.5);
             --accent-color: #ff3366;
             --accent-hover: #ff5e84;
+            --accent-glow: rgba(255, 51, 102, 0.15);
             --text-main: #2d3748;
             --text-sub: #718096;
             --progress-bg: rgba(0, 0, 0, 0.08);
             --glass-blur: blur(25px);
             --shadow-light: 0 15px 35px rgba(31, 38, 135, 0.08);
+            --popup-bg: rgba(255, 255, 255, 0.97);
+            --popup-overlay: rgba(0, 0, 0, 0.35);
         }
 
         html {
@@ -64,9 +67,10 @@
             padding: 0;
             outline: none;
         }
-        /* Glass Player Container Light Mode */
+
         .player-container {
-            width: 100%; padding:13px 0px;
+            width: 100%;
+            padding: 13px 0px;
             max-width: 400px;
             height: 90vh;
             max-height: 780px;
@@ -83,7 +87,7 @@
             box-shadow: var(--shadow-light), 0 8px 32px 0 rgba(31, 38, 135, 0.05);
             transition: transform 0.3s ease;
         }
-        /* Responsive Header and Setup Panel */
+
         .player-header {
             display: flex;
             flex-direction: column;
@@ -105,7 +109,7 @@
         }
         .header-logo span {
             color: var(--accent-color);
-            text-shadow: 0 0 15px rgba(255, 51, 102, 0.15);
+            text-shadow: 0 0 15px var(--accent-glow);
         }
         .header-top i {
             font-size: 1.3rem;
@@ -118,7 +122,7 @@
             color: var(--accent-color);
             transform: scale(1.05);
         }
-        /* Search Bar Container */
+
         .search-input-container {
             display: flex;
             gap: 8px;
@@ -127,6 +131,11 @@
             border-radius: 12px;
             padding: 4px 6px 4px 12px;
             align-items: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .search-input-container:focus-within {
+            border-color: rgba(255, 51, 102, 0.3);
+            box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.08);
         }
         .search-input-container input {
             flex: 1;
@@ -148,12 +157,15 @@
             font-weight: 600;
             font-size: 0.75rem;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.15s;
         }
         .search-input-container button:hover {
             background: var(--accent-hover);
         }
-        /* Artwork Area */
+        .search-input-container button:active {
+            transform: scale(0.95);
+        }
+
         .artwork-area {
             flex: 1.1;
             display: flex;
@@ -167,7 +179,7 @@
             aspect-ratio: 1;
             border-radius: 24px;
             overflow: hidden;
-            background-color: #e2e8f0; 
+            background-color: #e2e8f0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -176,7 +188,6 @@
             position: relative;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
-        /* Rotating / active animation styling */
         .thumbnail-box.playing {
             transform: scale(1.04);
             box-shadow: 0 15px 35px rgba(255, 51, 102, 0.15);
@@ -186,9 +197,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block; 
+            display: block;
         }
-        /* Track Metadata */
+
         .track-details {
             text-align: center;
             padding: 10px 28px;
@@ -210,7 +221,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        /* Progress Bar */
+
         .progress-area {
             padding: 14px 28px;
         }
@@ -257,7 +268,7 @@
             margin-top: 10px;
             font-weight: 500;
         }
-        /* Player Button Controls */
+
         .controls-area {
             display: flex;
             justify-content: space-between;
@@ -284,12 +295,11 @@
         }
         .control-btn.active {
             color: var(--accent-color);
-            text-shadow: 0 0 10px rgba(255, 51, 102, 0.15);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
         .control-btn:active {
             transform: scale(0.9);
         }
-        /* Large Centered Play/Pause Button */
         .control-btn.play-pause-btn {
             width: 64px;
             height: 64px;
@@ -308,7 +318,8 @@
         .control-btn.play-pause-btn:active {
             transform: scale(0.95);
         }
-        /* Playlist Drawer Panel (Light) */
+
+        /* ===== Playlist Drawer ===== */
         .playlist-drawer {
             position: absolute;
             bottom: 0;
@@ -356,8 +367,8 @@
             flex: 1;
             overflow-y: auto;
             padding: 10px 0;
-            -webkit-overflow-scrolling: touch; 
-        }        
+            -webkit-overflow-scrolling: touch;
+        }
         .playlist-item {
             display: flex;
             align-items: center;
@@ -398,7 +409,279 @@
             color: var(--text-sub);
             margin-top: 2px;
         }
-        /* Invisible YouTube Embed Container */
+
+        /* ===== Search Popup Modal ===== */
+        .search-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--popup-overlay);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px;
+        }
+        .search-popup-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .search-popup {
+            width: 100%;
+            max-width: 400px;
+            max-height: 75vh;
+            background: var(--popup-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .search-popup-overlay.visible .search-popup {
+            transform: translateY(0) scale(1);
+        }
+
+        .popup-header {
+            padding: 20px 22px 14px 22px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+        .popup-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .popup-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .popup-title i {
+            color: var(--accent-color);
+            font-size: 0.95rem;
+        }
+        .popup-close-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+        .popup-close-btn:hover {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--accent-color);
+        }
+        .popup-close-btn:active {
+            transform: scale(0.9);
+        }
+
+        .popup-search-bar {
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            padding: 4px 6px 4px 14px;
+            align-items: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .popup-search-bar:focus-within {
+            border-color: rgba(255, 51, 102, 0.35);
+            box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.08);
+        }
+        .popup-search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-main);
+        }
+        .popup-search-bar input::placeholder {
+            color: var(--text-sub);
+        }
+        .popup-search-bar button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .popup-search-bar button:hover {
+            background: var(--accent-hover);
+        }
+        .popup-search-bar button:active {
+            transform: scale(0.95);
+        }
+
+        .popup-results-info {
+            padding: 10px 22px 6px 22px;
+            font-size: 0.72rem;
+            color: var(--text-sub);
+            font-weight: 500;
+            flex-shrink: 0;
+            letter-spacing: 0.3px;
+        }
+        .popup-results-info span {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .popup-results-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 6px 0 12px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .popup-result-item {
+            display: flex;
+            align-items: center;
+            padding: 11px 22px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+            position: relative;
+        }
+        .popup-result-item:hover {
+            background: rgba(255, 51, 102, 0.04);
+        }
+        .popup-result-item:active {
+            transform: scale(0.98);
+        }
+        .popup-result-item.now-playing {
+            background: rgba(255, 51, 102, 0.06);
+        }
+        .popup-result-item.now-playing::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-color);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .result-index {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+        .popup-result-item.now-playing .result-index {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .result-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .result-track-title {
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3;
+        }
+        .popup-result-item.now-playing .result-track-title {
+            color: var(--accent-color);
+        }
+        .result-track-artist {
+            font-size: 0.73rem;
+            color: var(--text-sub);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .result-play-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-left: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .popup-result-item:hover .result-play-icon {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--accent-color);
+        }
+
+        .popup-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 30px;
+            text-align: center;
+        }
+        .popup-empty-state i {
+            font-size: 2.2rem;
+            color: #cbd5e0;
+            margin-bottom: 14px;
+        }
+        .popup-empty-state p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+        .popup-empty-state p strong {
+            color: var(--text-main);
+        }
+
+        /* Pulse animation on search button when results found */
+        @keyframes subtlePulse {
+            0%, 100% { box-shadow: 0 8px 20px rgba(255, 51, 102, 0.25); }
+            50% { box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4); }
+        }
+
         #yt-player-container {
             position: absolute;
             width: 1px;
@@ -406,372 +689,549 @@
             opacity: 0;
             pointer-events: none;
         }
+
+        /* Toast notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-main);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+            white-space: nowrap;
+        }
+        .toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body>
-    <div class="player-container">        
-        <div class="player-header">            
-            <div class="header-top">                
-                <div class="header-logo">Gauranga <span>Play</span></div>                
-                <i class="fa-solid fa-bars" id="menu-btn" title="Open Playlist"></i>            
-            </div>            
-            <div class="search-input-container">                
-                <input type="text" id="playlist-url-input" placeholder="Search track inside playlist...">                
-                <button id="load-playlist-btn">Find</button>            
-            </div>        
+    <div class="player-container">
+        <div class="player-header">
+            <div class="header-top">
+                <div class="header-logo">Gauranga <span>Play</span></div>
+                <i class="fa-solid fa-bars" id="menu-btn" title="Open Playlist"></i>
+            </div>
+            <div class="search-input-container">
+                <input type="text" id="playlist-url-input" placeholder="Search track inside playlist...">
+                <button id="load-playlist-btn">Find</button>
+            </div>
         </div>
 
-        <div class="artwork-area">            
-            <div class="thumbnail-box" id="thumbnail-container">                
-                <img src="https://i.ibb.co/W457x2QS/IMG-20260420-172501.webp" alt="Album Artwork" id="track-art">            
-            </div>        
+        <div class="artwork-area">
+            <div class="thumbnail-box" id="thumbnail-container">
+                <img src="https://i.ibb.co/W457x2QS/IMG-20260420-172501.webp" alt="Album Artwork" id="track-art">
+            </div>
         </div>
 
-        <div class="track-details">            
-            <h2 class="track-title" id="track-title">Ready to Load...</h2>            
-            <p class="track-artist" id="track-artist">Tracks are syncing</p>        
+        <div class="track-details">
+            <h2 class="track-title" id="track-title">Ready to Load...</h2>
+            <p class="track-artist" id="track-artist">Tracks are syncing</p>
         </div>
 
-        <div class="progress-area">            
-            <div class="progress-bar-container" id="progress-container">                
-                <div class="progress-bar" id="progress-bar"></div>            
-            </div>            
-            <div class="time-stamps">                
-                <span id="current-time">0:00</span>                
-                <span id="total-duration">0:00</span>            </div>        
+        <div class="progress-area">
+            <div class="progress-bar-container" id="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="time-stamps">
+                <span id="current-time">0:00</span>
+                <span id="total-duration">0:00</span>
+            </div>
         </div>
 
-        <div class="controls-area">            
-            <button class="control-btn" id="shuffle-btn" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>            
-            <button class="control-btn" id="prev-btn" title="Previous"><i class="fa-solid fa-backward-step"></i></button>            
-            <button class="control-btn play-pause-btn" id="play-btn" title="Play/Pause"><i class="fa-solid fa-play" id="play-icon"></i></button>            
-            <button class="control-btn" id="next-btn" title="Next"><i class="fa-solid fa-forward-step"></i></button>            
-            <button class="control-btn" id="repeat-btn" title="Repeat"><i class="fa-solid fa-repeat"></i></button>        
+        <div class="controls-area">
+            <button class="control-btn" id="shuffle-btn" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+            <button class="control-btn" id="prev-btn" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+            <button class="control-btn play-pause-btn" id="play-btn" title="Play/Pause"><i class="fa-solid fa-play" id="play-icon"></i></button>
+            <button class="control-btn" id="next-btn" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+            <button class="control-btn" id="repeat-btn" title="Repeat"><i class="fa-solid fa-repeat"></i></button>
         </div>
 
-        <div class="playlist-drawer" id="playlist-drawer">            
-            <div class="playlist-header">                
-                <span>Playlist Tracks</span>                
-                <i class="fa-solid fa-xmark" id="close-drawer-btn" title="Close Drawer"></i>            
-            </div>            
-            <div id="playlist-items-container">                
-                <div style="padding: 30px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">                    
-                    Tracks details loading...                
-                </div>            
-            </div>        
-        </div>    
+        <div class="playlist-drawer" id="playlist-drawer">
+            <div class="playlist-header">
+                <span>Playlist Tracks</span>
+                <i class="fa-solid fa-xmark" id="close-drawer-btn" title="Close Drawer"></i>
+            </div>
+            <div id="playlist-items-container">
+                <div style="padding: 30px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">
+                    Tracks details loading...
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="yt-player-container">        
-        <div id="yt-player"></div>    
+    <!-- Search Popup Modal -->
+    <div class="search-popup-overlay" id="search-popup-overlay">
+        <div class="search-popup">
+            <div class="popup-header">
+                <div class="popup-top-row">
+                    <div class="popup-title">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Search Tracks
+                    </div>
+                    <button class="popup-close-btn" id="popup-close-btn" title="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="popup-search-bar">
+                    <input type="text" id="popup-search-input" placeholder="Type track name or artist...">
+                    <button id="popup-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+            <div class="popup-results-info" id="popup-results-info"></div>
+            <div class="popup-results-container" id="popup-results-container">
+                <div class="popup-empty-state">
+                    <i class="fa-solid fa-music"></i>
+                    <p>Type a track name or artist above<br>and tap <strong>Search</strong> to find</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-notification" id="toast-notification"></div>
+
+    <div id="yt-player-container">
+        <div id="yt-player"></div>
     </div>
 
     <script>
         // Default Playlist ID
-        let currentPlaylistId = "PLTecol7El0xA-WvmfEyvHgRrNOw1bD3yL"; 
-        // Default Image for all tracks
+        let currentPlaylistId = "PLTecol7El0xA-WvmfEyvHgRrNOw1bD3yL";
         const defaultCoverImage = "https://i.ibb.co/W457x2QS/IMG-20260420-172501.webp";
 
-        let player;        
-        let playlistTracks = [];        
-        let filteredTracks = []; // For search filtering
-        let currentTrackIndex = 0;        
-        let isPlaying = false;        
-        let isShuffle = false;        
-        let isRepeat = false;        
+        let player;
+        let playlistTracks = [];
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let isShuffle = false;
+        let isRepeat = false;
         let progressInterval;
 
         // Elements
-        const playBtn = document.getElementById('play-btn');        
-        const playIcon = document.getElementById('play-icon');        
-        const prevBtn = document.getElementById('prev-btn');        
-        const nextBtn = document.getElementById('next-btn');        
-        const shuffleBtn = document.getElementById('shuffle-btn');        
-        const repeatBtn = document.getElementById('repeat-btn');        
-        const title = document.getElementById('track-title');        
-        const artist = document.getElementById('track-artist');        
-        const cover = document.getElementById('track-art');        
-        const progressContainer = document.getElementById('progress-container');        
-        const progressBar = document.getElementById('progress-bar');        
-        const currentTimeEl = document.getElementById('current-time');        
-        const durationTimeEl = document.getElementById('total-duration');        
-        const playlistContainer = document.getElementById('playlist-items-container');        
-        const thumbnailBox = document.getElementById('thumbnail-container');                
-        const menuBtn = document.getElementById('menu-btn');        
-        const closeDrawerBtn = document.getElementById('close-drawer-btn');        
-        const playlistDrawer = document.getElementById('playlist-drawer');        
-        const playlistInput = document.getElementById('playlist-url-input');        
+        const playBtn = document.getElementById('play-btn');
+        const playIcon = document.getElementById('play-icon');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const repeatBtn = document.getElementById('repeat-btn');
+        const title = document.getElementById('track-title');
+        const artist = document.getElementById('track-artist');
+        const cover = document.getElementById('track-art');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationTimeEl = document.getElementById('total-duration');
+        const playlistContainer = document.getElementById('playlist-items-container');
+        const thumbnailBox = document.getElementById('thumbnail-container');
+        const menuBtn = document.getElementById('menu-btn');
+        const closeDrawerBtn = document.getElementById('close-drawer-btn');
+        const playlistDrawer = document.getElementById('playlist-drawer');
+        const playlistInput = document.getElementById('playlist-url-input');
         const loadPlaylistBtn = document.getElementById('load-playlist-btn');
 
-        // Drawer Event Listeners
-        menuBtn.addEventListener('click', () => playlistDrawer.classList.add('open'));        
+        // Popup Elements
+        const searchOverlay = document.getElementById('search-popup-overlay');
+        const popupCloseBtn = document.getElementById('popup-close-btn');
+        const popupSearchInput = document.getElementById('popup-search-input');
+        const popupSearchBtn = document.getElementById('popup-search-btn');
+        const popupResultsInfo = document.getElementById('popup-results-info');
+        const popupResultsContainer = document.getElementById('popup-results-container');
+        const toastEl = document.getElementById('toast-notification');
+
+        // Toast function
+        function showToast(message) {
+            toastEl.textContent = message;
+            toastEl.classList.add('show');
+            clearTimeout(toastEl._timeout);
+            toastEl._timeout = setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 2200);
+        }
+
+        // Drawer Listeners
+        menuBtn.addEventListener('click', () => playlistDrawer.classList.add('open'));
         closeDrawerBtn.addEventListener('click', () => playlistDrawer.classList.remove('open'));
 
-        // Load API asynchronously 
-        const tag = document.createElement('script');        
-        tag.src = "https://www.youtube.com/iframe_api";        
-        const firstScriptTag = document.getElementsByTagName('script')[0];        
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        function onYouTubeIframeAPIReady() {            
-            player = new YT.Player('yt-player', {                
-                height: '200',                
-                width: '200',                
-                playerVars: {                    
-                    autoplay: 0,                    
-                    controls: 0,                    
-                    disablekb: 1,                    
-                    fs: 0,                    
-                    modestbranding: 1,                    
-                    rel: 0,                    
-                    showinfo: 0,                    
-                    enablejsapi: 1,                    
-                    origin: window.location.origin                
-                },                
-                events: {                    
-                    'onReady': onPlayerReady,                    
-                    'onStateChange': onPlayerStateChange,                    
-                    'onError': onPlayerError                
-                }            
-            });        
-        }
-
-        function onPlayerReady(event) {            
-            loadPlaylist(currentPlaylistId);        
-        }
-
-        // Sync & Reset Interface
-        function loadPlaylist(id) {            
-            playlistContainer.innerHTML = `                
-                <div style="padding: 30px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">                    
-                    <i class="fa-solid fa-circle-notch fa-spin" style="margin-bottom: 10px; display: block; font-size: 1.5rem; color: var(--accent-color);"></i>                    
-                    Syncing tracks...                
-                </div>`;            
-            playlistTracks = [];            
-            filteredTracks = [];
-            currentTrackIndex = 0;            
-            player.cuePlaylist({list: id});        
-        }
-
-        // Search Filter Logic
-        function filterPlaylist() {
-            const query = playlistInput.value.toLowerCase().trim();
-            if (query === "") {
-                filteredTracks = [...playlistTracks];
-            } else {
-                filteredTracks = playlistTracks.filter(track => 
-                    track.title.toLowerCase().includes(query) || 
-                    track.artist.toLowerCase().includes(query)
-                );
+        // ===== Search Popup Logic =====
+        // Open popup when "Find" button clicked (with or without text)
+        loadPlaylistBtn.addEventListener('click', () => {
+            const query = playlistInput.value.trim();
+            // Transfer search text to popup input
+            popupSearchInput.value = query;
+            openSearchPopup();
+            // Auto-search if there's text
+            if (query.length > 0) {
+                executePopupSearch();
             }
-            buildPlaylistUI();
+        });
+
+        // Also open popup on Enter key in main search
+        playlistInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                loadPlaylistBtn.click();
+            }
+        });
+
+        function openSearchPopup() {
+            searchOverlay.classList.add('visible');
+            // Focus the popup search input after animation
+            setTimeout(() => popupSearchInput.focus(), 350);
         }
 
-        loadPlaylistBtn.addEventListener('click', filterPlaylist);
-        playlistInput.addEventListener('input', filterPlaylist); // Real-time search update
-
-        function onPlayerError(event) {            
-            console.error("YouTube Playback Issue Code: ", event.data);            
-            title.textContent = "Unavailable Track";            
-            artist.textContent = "Skipping or playing restriction applied";            
-            setTimeout(() => { player.nextVideo(); }, 2000);        
+        function closeSearchPopup() {
+            searchOverlay.classList.remove('visible');
         }
 
-        function onPlayerStateChange(event) {            
-            if (event.data === YT.PlayerState.CUED || event.data === -1) {                
-                const playlistIds = player.getPlaylist();                
-                if (playlistIds && playlistIds.length > 0 && playlistTracks.length === 0) {                    
-                    playlistTracks = playlistIds.map((id, index) => {                        
-                        return {                            
-                            id: id,                            
-                            title: `Track #${index + 1}`,                            
-                            artist: "Loading metadata...",                            
-                            cover: defaultCoverImage, // Using default image here                           
-                            index: index                        
-                        };                    
-                    });                                        
-                    filteredTracks = [...playlistTracks];
-                    buildPlaylistUI();                    
-                    setTimeout(fetchYouTubeVideoTitles, 500);                
-                }            
-            }                        
-            if (event.data === YT.PlayerState.PLAYING) {                
-                isPlaying = true;                
-                playIcon.className = "fa-solid fa-pause";                
-                thumbnailBox.classList.add('playing');                
-                startProgressTracker();                
-                syncTrackMeta();            
-            } else if (event.data === YT.PlayerState.PAUSED) {                
-                isPlaying = false;                
-                playIcon.className = "fa-solid fa-play";                
-                thumbnailBox.classList.remove('playing');                
-                clearInterval(progressInterval);            
-            } else if (event.data === YT.PlayerState.ENDED) {                
-                clearInterval(progressInterval);                
-                handleTrackEnded();            
-            }        
-        }
+        popupCloseBtn.addEventListener('click', closeSearchPopup);
 
-        // Retrieve video title metadata fallback
-        function fetchYouTubeVideoTitles() {            
-            if (!player || typeof player.getPlaylist !== 'function') return;            
-            const playlistIds = player.getPlaylist();            
-            if (!playlistIds) return;
+        // Close on overlay click (outside popup box)
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) {
+                closeSearchPopup();
+            }
+        });
 
-            playlistTracks.forEach((track, index) => {                
-                const originalTitleElement = document.getElementById(`li-title-${index}`);                
-                if (originalTitleElement) {                    
-                    fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${track.id}`)                        
-                        .then(res => res.json())                        
-                        .then(data => {                            
-                            if (data && data.title) {                                
-                                track.title = data.title;                                
-                                track.artist = data.author_name || "Unknown Artist";                                                                
-                                
-                                if (originalTitleElement) originalTitleElement.textContent = data.title;                                
-                                const artistElement = document.getElementById(`li-artist-${index}`);                                
-                                if (artistElement) artistElement.textContent = track.artist;                                                                
-                                
-                                if (index === currentTrackIndex) {                                    
-                                    syncTrackMeta();                                
-                                }                            
-                            }                        
-                        })                        
-                        .catch(err => console.log("Embed load err: ", err));                
-                }            
-            });        
-        }
+        // Search inside popup
+        popupSearchBtn.addEventListener('click', executePopupSearch);
+        popupSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                executePopupSearch();
+            }
+        });
 
-        function buildPlaylistUI() {            
-            playlistContainer.innerHTML = '';            
-            if (filteredTracks.length === 0) {
-                playlistContainer.innerHTML = `
-                    <div style="padding: 30px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">
-                        No tracks found matching your search.
+        function executePopupSearch() {
+            const query = popupSearchInput.value.toLowerCase().trim();
+
+            if (query === '') {
+                popupResultsInfo.innerHTML = '';
+                popupResultsContainer.innerHTML = `
+                    <div class="popup-empty-state">
+                        <i class="fa-solid fa-music"></i>
+                        <p>Type a track name or artist above<br>and tap <strong>Search</strong> to find</p>
                     </div>`;
                 return;
             }
 
-            filteredTracks.forEach((track) => {                
-                const item = document.createElement('div');                
-                item.classList.add('playlist-item');                
-                item.setAttribute('data-index', track.index);                                
-                item.innerHTML = `                    
-                    <img src="${track.cover}" alt="Artwork">                    
-                    <div class="playlist-item-info">                        
-                        <div class="playlist-item-title" id="li-title-${track.index}">${track.title}</div>                        
-                        <div class="playlist-item-duration" id="li-artist-${track.index}">${track.artist}</div>                    
-                    </div>                
-                `;                                
-                item.addEventListener('click', () => {                    
-                    playTrackAt(track.index);                    
-                    playlistDrawer.classList.remove('open');                
-                });                                
-                playlistContainer.appendChild(item);            
-            });            
-            updatePlaylistActiveState();        
+            if (playlistTracks.length === 0) {
+                popupResultsInfo.innerHTML = '';
+                popupResultsContainer.innerHTML = `
+                    <div class="popup-empty-state">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p>Playlist is still loading.<br>Please wait a moment and try again.</p>
+                    </div>`;
+                return;
+            }
+
+            // Filter tracks
+            const results = playlistTracks.filter(track =>
+                track.title.toLowerCase().includes(query) ||
+                track.artist.toLowerCase().includes(query)
+            );
+
+            // Show results count
+            if (results.length > 0) {
+                popupResultsInfo.innerHTML = `Found <span>${results.length}</span> track${results.length > 1 ? 's' : ''} matching "<strong>${escapeHTML(popupSearchInput.value.trim())}</strong>"`;
+            } else {
+                popupResultsInfo.innerHTML = `No tracks found for "<strong>${escapeHTML(popupSearchInput.value.trim())}</strong>"`;
+            }
+
+            // Build result items
+            popupResultsContainer.innerHTML = '';
+
+            if (results.length === 0) {
+                popupResultsContainer.innerHTML = `
+                    <div class="popup-empty-state">
+                        <i class="fa-solid fa-face-sad-tear"></i>
+                        <p>No matching tracks found.<br>Try a different keyword.</p>
+                    </div>`;
+                return;
+            }
+
+            results.forEach((track) => {
+                const isNowPlaying = track.index === currentTrackIndex;
+                const item = document.createElement('div');
+                item.classList.add('popup-result-item');
+                if (isNowPlaying) item.classList.add('now-playing');
+
+                item.innerHTML = `
+                    <div class="result-index">${isNowPlaying ? '<i class="fa-solid fa-volume-high" style="font-size:0.7rem"></i>' : (track.index + 1)}</div>
+                    <div class="result-info">
+                        <div class="result-track-title">${escapeHTML(track.title)}</div>
+                        <div class="result-track-artist">${escapeHTML(track.artist)}</div>
+                    </div>
+                    <div class="result-play-icon">
+                        <i class="fa-solid ${isNowPlaying ? 'fa-pause' : 'fa-play'}"></i>
+                    </div>
+                `;
+
+                item.addEventListener('click', () => {
+                    playTrackAt(track.index);
+                    closeSearchPopup();
+                    showToast(`Playing: ${track.title}`);
+                    // Refresh popup results in case user opens again
+                    setTimeout(executePopupSearch, 100);
+                });
+
+                popupResultsContainer.appendChild(item);
+            });
         }
 
-        function updatePlaylistActiveState() {            
-            const items = document.querySelectorAll('.playlist-item');            
-            items.forEach((item) => {                
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ===== YouTube Player =====
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '200',
+                width: '200',
+                playerVars: {
+                    autoplay: 0,
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    modestbranding: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    enablejsapi: 1,
+                    origin: window.location.origin
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            loadPlaylist(currentPlaylistId);
+        }
+
+        function loadPlaylist(id) {
+            playlistContainer.innerHTML = `
+                <div style="padding: 30px; text-align: center; color: var(--text-sub); font-size: 0.9rem;">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="margin-bottom: 10px; display: block; font-size: 1.5rem; color: var(--accent-color);"></i>
+                    Syncing tracks...
+                </div>`;
+            playlistTracks = [];
+            currentTrackIndex = 0;
+            player.cuePlaylist({ list: id });
+        }
+
+        function onPlayerError(event) {
+            console.error("YouTube Playback Issue Code: ", event.data);
+            title.textContent = "Unavailable Track";
+            artist.textContent = "Skipping or playing restriction applied";
+            setTimeout(() => { player.nextVideo(); }, 2000);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.CUED || event.data === -1) {
+                const playlistIds = player.getPlaylist();
+                if (playlistIds && playlistIds.length > 0 && playlistTracks.length === 0) {
+                    playlistTracks = playlistIds.map((id, index) => {
+                        return {
+                            id: id,
+                            title: `Track #${index + 1}`,
+                            artist: "Loading metadata...",
+                            cover: defaultCoverImage,
+                            index: index
+                        };
+                    });
+                    buildPlaylistUI();
+                    setTimeout(fetchYouTubeVideoTitles, 500);
+                }
+            }
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                playIcon.className = "fa-solid fa-pause";
+                thumbnailBox.classList.add('playing');
+                startProgressTracker();
+                syncTrackMeta();
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                isPlaying = false;
+                playIcon.className = "fa-solid fa-play";
+                thumbnailBox.classList.remove('playing');
+                clearInterval(progressInterval);
+            } else if (event.data === YT.PlayerState.ENDED) {
+                clearInterval(progressInterval);
+                handleTrackEnded();
+            }
+        }
+
+        function fetchYouTubeVideoTitles() {
+            if (!player || typeof player.getPlaylist !== 'function') return;
+            const playlistIds = player.getPlaylist();
+            if (!playlistIds) return;
+
+            playlistTracks.forEach((track, index) => {
+                const originalTitleElement = document.getElementById(`li-title-${index}`);
+                if (originalTitleElement) {
+                    fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${track.id}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data && data.title) {
+                                track.title = data.title;
+                                track.artist = data.author_name || "Unknown Artist";
+
+                                if (originalTitleElement) originalTitleElement.textContent = data.title;
+                                const artistElement = document.getElementById(`li-artist-${index}`);
+                                if (artistElement) artistElement.textContent = track.artist;
+
+                                if (index === currentTrackIndex) {
+                                    syncTrackMeta();
+                                }
+                            }
+                        })
+                        .catch(err => console.log("Embed load err: ", err));
+                }
+            });
+        }
+
+        function buildPlaylistUI() {
+            playlistContainer.innerHTML = '';
+            playlistTracks.forEach((track) => {
+                const item = document.createElement('div');
+                item.classList.add('playlist-item');
+                item.setAttribute('data-index', track.index);
+                item.innerHTML = `
+                    <img src="${track.cover}" alt="Artwork">
+                    <div class="playlist-item-info">
+                        <div class="playlist-item-title" id="li-title-${track.index}">${track.title}</div>
+                        <div class="playlist-item-duration" id="li-artist-${track.index}">${track.artist}</div>
+                    </div>
+                `;
+                item.addEventListener('click', () => {
+                    playTrackAt(track.index);
+                    playlistDrawer.classList.remove('open');
+                });
+                playlistContainer.appendChild(item);
+            });
+            updatePlaylistActiveState();
+        }
+
+        function updatePlaylistActiveState() {
+            const items = document.querySelectorAll('.playlist-item');
+            items.forEach((item) => {
                 const itemIdx = parseInt(item.getAttribute('data-index'));
-                if (itemIdx === currentTrackIndex) {                    
-                    item.classList.add('active');                
-                } else {                    
-                    item.classList.remove('active');                
-                }            
-            });        
+                if (itemIdx === currentTrackIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
         }
 
-        function syncTrackMeta() {            
-            const index = player.getPlaylistIndex();            
-            if (index === -1 || index === undefined) return;            
+        function syncTrackMeta() {
+            const index = player.getPlaylistIndex();
+            if (index === -1 || index === undefined) return;
             currentTrackIndex = index;
 
-            const selectedTrack = playlistTracks[index];            
-            if (selectedTrack) {                
-                title.textContent = selectedTrack.title;                
-                artist.textContent = selectedTrack.artist;                
-                cover.src = defaultCoverImage; // Keeps primary big image default too
-            }            
-            updatePlaylistActiveState();        
+            const selectedTrack = playlistTracks[index];
+            if (selectedTrack) {
+                title.textContent = selectedTrack.title;
+                artist.textContent = selectedTrack.artist;
+                cover.src = defaultCoverImage;
+            }
+            updatePlaylistActiveState();
         }
 
-        function playTrackAt(index) {            
-            currentTrackIndex = index;            
-            player.playVideoAt(index);            
-            updatePlaylistActiveState();        
+        function playTrackAt(index) {
+            currentTrackIndex = index;
+            player.playVideoAt(index);
+            updatePlaylistActiveState();
         }
 
-        // Standard Navigation Controls        
-        playBtn.addEventListener('click', () => {            
-            if (isPlaying) {                
-                player.pauseVideo();            
-            } else {                
-                player.playVideo();            
-            }        
+        // Controls
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
         });
 
-        prevBtn.addEventListener('click', () => player.previousVideo());        
+        prevBtn.addEventListener('click', () => player.previousVideo());
         nextBtn.addEventListener('click', () => player.nextVideo());
 
-        shuffleBtn.addEventListener('click', () => {            
-            isShuffle = !isShuffle;            
-            player.setShuffle(isShuffle);            
-            shuffleBtn.classList.toggle('active', isShuffle);        
+        shuffleBtn.addEventListener('click', () => {
+            isShuffle = !isShuffle;
+            player.setShuffle(isShuffle);
+            shuffleBtn.classList.toggle('active', isShuffle);
         });
 
-        repeatBtn.addEventListener('click', () => {            
-            isRepeat = !isRepeat;            
-            player.setLoop(isRepeat);            
-            repeatBtn.classList.toggle('active', isRepeat);        
+        repeatBtn.addEventListener('click', () => {
+            isRepeat = !isRepeat;
+            player.setLoop(isRepeat);
+            repeatBtn.classList.toggle('active', isRepeat);
         });
 
-        function handleTrackEnded() {            
-            if (isRepeat) {                
-                player.playVideo();            
-            } else {                
-                player.nextVideo();            
-            }        
+        function handleTrackEnded() {
+            if (isRepeat) {
+                player.playVideo();
+            } else {
+                player.nextVideo();
+            }
         }
 
-        function startProgressTracker() {            
-            clearInterval(progressInterval);            
-            progressInterval = setInterval(() => {                
+        function startProgressTracker() {
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
                 if (!player || typeof player.getCurrentTime !== 'function') return;
 
-                const currentTime = player.getCurrentTime();                
+                const currentTime = player.getCurrentTime();
                 const duration = player.getDuration();
 
-                if (duration > 0) {                    
-                    const progressPercent = (currentTime / duration) * 100;                    
+                if (duration > 0) {
+                    const progressPercent = (currentTime / duration) * 100;
                     progressBar.style.width = `${progressPercent}%`;
 
-                    currentTimeEl.textContent = formatTime(currentTime);                    
-                    durationTimeEl.textContent = formatTime(duration);                
-                }            
-            }, 500);        
+                    currentTimeEl.textContent = formatTime(currentTime);
+                    durationTimeEl.textContent = formatTime(duration);
+                }
+            }, 500);
         }
 
-        function formatTime(seconds) {            
-            const mins = Math.floor(seconds / 60);            
-            let secs = Math.floor(seconds % 60);            
-            if (secs < 10) secs = `0${secs}`;            
-            return `${mins}:${secs}`;        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            let secs = Math.floor(seconds % 60);
+            if (secs < 10) secs = `0${secs}`;
+            return `${mins}:${secs}`;
         }
 
-        // Scrub Progress Bar seeking        
-        progressContainer.addEventListener('click', (e) => {            
-            if (!player || typeof player.getDuration !== 'function') return;                        
-            const rect = progressContainer.getBoundingClientRect();            
-            const clickX = e.clientX - rect.left;            
-            const width = rect.width;            
-            const duration = player.getDuration();                        
-            if (duration > 0) {                
-                const seekToSec = (clickX / width) * duration;                
-                player.seekTo(seekToSec, true);            
-            }        
+        progressContainer.addEventListener('click', (e) => {
+            if (!player || typeof player.getDuration !== 'function') return;
+
+            const rect = progressContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const duration = player.getDuration();
+
+            if (duration > 0) {
+                const seekToSec = (clickX / width) * duration;
+                player.seekTo(seekToSec, true);
+            }
         });
     </script>
 </body>
