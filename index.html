@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#ffffff"/>
+    <meta name="theme-color" content="#fafafa"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' type='image/x-icon'/>
@@ -15,8 +16,8 @@
     
     <style>
         :root {
-            --bg-gradient: linear-gradient(245deg, rgba(255, 51, 102, 0.15) 0%, #c3cfe2 100%);
-            --card-bg: rgba(255, 255, 255, 0.5);
+            --bg-gradient: linear-gradient(245deg, rgba(255, 51, 102, 0.35) 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.4);
             --card-border: rgba(255, 255, 255, 0.5);
             --accent-color: #ff3366;
             --accent-hover: #ff5e84;
@@ -72,14 +73,12 @@
             width: 100%;
             padding: 13px 0px;
             max-width: 400px;
-            height: 90vh;
-            max-height: 780px;
-            min-height: 600px;
+            height:auto;
             background: var(--card-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--card-border);
-            border-radius: 22px;
+            border-radius: 22px 2px 22px 22px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -91,7 +90,7 @@
         .player-header {
             display: flex;
             flex-direction: column;
-            padding: 20px 24px 10px 24px;
+            padding: 17px 24px 10px 24px;
             z-index: 5;
             gap: 12px;
         }
@@ -149,7 +148,7 @@
             color: var(--text-sub);
         }
         .search-input-container button {
-            background: var(--accent-color);
+            background:#ff3366;
             color: white;
             border: none;
             padding: 6px 14px;
@@ -171,7 +170,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 32px;
+            padding: 30px 32px;
         }
         .thumbnail-box {
             width: 85%;
@@ -200,7 +199,7 @@
 
         .track-details {
             text-align: center;
-            padding: 10px 28px;
+            padding: 0px 28px;
         }
         .track-title {
             font-size: 1.15rem;
@@ -324,7 +323,7 @@
             left: 0;
             width: 100%;
             height: 88%;
-            background: rgba(255, 255, 255, 0.98);
+            background:#F5DFEC;
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-top: 1px solid var(--card-border);
@@ -435,7 +434,7 @@
             width: 100%;
             max-width: 400px;
             max-height: 75vh;
-            background: var(--popup-bg);
+            background: #F5E7EF;
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,255,255,0.1);
@@ -713,9 +712,160 @@
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
+
+
+/* Sabhi circles ki common property */
+.circle {
+  position: absolute;
+  width: 100px;  
+  height: 100px;
+  border-radius: 50%; 
+  opacity: 0; 
+z-index:0;
+}
+
+/* --- ALL CIRCLES WITH MATCHING COLOR & SHADOW/GLOW ANIMATIONS --- */
+
+/* Circle 1 */
+.c1 {
+  animation: moveAndChange1 10s ease-in-out infinite;
+}
+@keyframes moveAndChange1 {
+  0%, 100% { 
+    top: 20%; left: 9px; 
+    background-color: #ff4757; 
+    box-shadow: 0 0 25px #ff4757, 0 0 50px #ff4757; 
+    opacity: 0; transform: scale(0.8); 
+  }
+  20%      { opacity: 1; transform: scale(1); } 
+  40%      { 
+    top: 50%; left: 90%; 
+    background-color: #2ed573; 
+    box-shadow: 0 0 25px #2ed573, 0 0 50px #2ed573; 
+    opacity: 0; 
+  } 
+  60%      { opacity: 1; transform: scale(1.1); } 
+  80%      { 
+    top: 70%; left: 20%; 
+    background-color: #1e90ff; 
+    box-shadow: 0 0 25px #1e90ff, 0 0 50px #1e90ff; 
+    opacity: 0; 
+  }
+}
+
+/* Circle 2 */
+.c2 {
+  animation: moveAndChange2 12s ease-in-out infinite;
+  animation-delay: 2s;
+}
+@keyframes moveAndChange2 {
+  0%, 100% { 
+    top: 10%; left: 25%; 
+    background-color: #2ed573; 
+    box-shadow: 0 0 25px #2ed573, 0 0 50px #2ed573; 
+    opacity: 0; 
+  }
+  25%      { 
+    opacity: 1; 
+    background-color: #ffa502; 
+    box-shadow: 0 0 25px #ffa502, 0 0 50px #ffa502; 
+  }
+  50%      { 
+    top: 30%; left: 55%; 
+    background-color: #eccc68; 
+    box-shadow: 0 0 25px #eccc68, 0 0 50px #eccc68; 
+    opacity: 0; 
+  }
+  75%      { 
+    opacity: 1; 
+    background-color: #ff4757; 
+    box-shadow: 0 0 25px #ff4757, 0 0 50px #ff4757; 
+  }
+}
+
+/* Circle 3 */
+.c3 {
+  animation: moveAndChange3 8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+@keyframes moveAndChange3 {
+  0%, 100% { 
+    top: 30%; right: 60%; 
+    background-color: #1e90ff; 
+    box-shadow: 0 0 25px #1e90ff, 0 0 50px #1e90ff; 
+    opacity: 0; 
+  }
+  33%      { 
+    opacity: 1; 
+    background-color: #eccc68; 
+    box-shadow: 0 0 25px #eccc68, 0 0 50px #eccc68; 
+  }
+  66%      { 
+    top: 80%; right: 40%; 
+    background-color: #ff4757; 
+    box-shadow: 0 0 25px #ff4757, 0 0 50px #ff4757; 
+    opacity: 0; 
+  }
+}
+
+/* Circle 4 */
+.c4 {
+  animation: moveAndChange4 11s ease-in-out infinite;
+  animation-delay: 3s;
+}
+@keyframes moveAndChange4 {
+  0%, 100% { 
+    bottom: 75%; left: 35%; 
+    background-color: #ffa502; 
+    box-shadow: 0 0 25px #ffa502, 0 0 50px #ffa502; 
+    opacity: 0; 
+  }
+  50%      { 
+    opacity: 1; 
+    top: 15%; left: 0%; 
+    background-color: #2ed573; 
+    box-shadow: 0 0 25px #2ed573, 0 0 50px #2ed573; 
+  }
+}
+
+/* Circle 5 */
+.c5 {
+  animation: moveAndChange5 9s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+@keyframes moveAndChange5 {
+  0%, 100% { 
+    top: 15%; left: 45%; 
+    background-color: #eccc68; 
+    box-shadow: 0 0 25px #eccc68, 0 0 50px #eccc68; 
+    opacity: 0; 
+  }
+  50%      { 
+    opacity: 1; 
+    top: 60%; left: 15%; 
+    background-color: #1e90ff; 
+    box-shadow: 0 0 25px #1e90ff, 0 0 50px #1e90ff; 
+  }
+}
+
+
+
     </style>
 </head>
 <body>
+
+<div class="container">
+  <div class="circle c1"></div>
+  <div class="circle c2"></div>
+ 
+ <div class="circle c3"></div>
+  <div class="circle c4"></div>
+
+  <div class="circle c5"></div>
+</div>
+
+
+
     <div class="player-container">
         <div class="player-header">
             <div class="header-top">
@@ -729,6 +879,7 @@
         </div>
 
         <div class="artwork-area">
+
             <div class="thumbnail-box" id="thumbnail-container">
                 <img src="https://i.ibb.co/vG8q58H/1000019423-jpg.webp" alt="Album Artwork" id="track-art">
             </div>
@@ -1232,5 +1383,6 @@
             }
         });
     </script>
+
 </body>
 </html>
