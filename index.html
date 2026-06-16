@@ -15,8 +15,8 @@
     
     <style>
         :root {
-            --bg-gradient: linear-gradient(155deg, #f5f7fa 0%, #c3cfe2 100%);
-            --card-bg: rgba(255, 255, 255, 0.75);
+            --bg-gradient: linear-gradient(245deg, rgba(255, 51, 102, 0.15) 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.5);
             --card-border: rgba(255, 255, 255, 0.5);
             --accent-color: #ff3366;
             --accent-hover: #ff5e84;
@@ -123,7 +123,7 @@
             transform: scale(1.05);
         }
 
-        .search-input-container {
+        .search-input-container {margin-top:16px;
             display: flex;
             gap: 8px;
             background: rgba(0, 0, 0, 0.04);
@@ -189,9 +189,9 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
         .thumbnail-box.playing {
-            transform: scale(1.04);
+       
         }
-        .thumbnail-box img {
+        .thumbnail-box img {opacity:0.8;
             width: 100%;
             height: 100%;
             object-fit: cover;
