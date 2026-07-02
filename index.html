@@ -1,15 +1,15 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#fafafa"/>
+    <meta name="theme-color" content="#F8D8E4"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' type='image/x-icon'/>
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' sizes='32x32' type='image/png'/>
     <link href='https://i.ibb.co/JwWLTZ8N/20260512-224845.png' rel='icon' sizes='16x16' type='image/png'/>
-    
     <title>Gauranga</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -48,16 +48,16 @@
             height: 0px !important;
             background: transparent !important;
         }
+img {
+  filter: grayscale(80%);
+}
         body {
             -webkit-tap-highlight-color: transparent;
             background: var(--bg-gradient);
             color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100%;
             margin: 0;
-            padding: 15px 15px;
+            padding: 15px 22px;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
@@ -70,6 +70,7 @@
         }
 
         .player-container {
+        margin-top:25px;
             width: 100%;
             padding: 13px 0px;
             max-width: 400px;
@@ -78,7 +79,7 @@
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--card-border);
-            border-radius: 22px 2px 22px 22px;
+            border-radius: 28px 0px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -101,7 +102,7 @@
             width: 100%;
         }
         .header-logo {
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: 700;
             letter-spacing: 0.5px;
             color: var(--text-main);
@@ -122,13 +123,13 @@
             transform: scale(1.05);
         }
 
-        .search-input-container {margin-top:16px;
+        .search-input-container {margin-top:13px;
             display: flex;
-            gap: 8px;
+            gap:0px;
             background: rgba(0, 0, 0, 0.04);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 12px;
-            padding: 4px 6px 4px 12px;
+            border-radius: 30px;
+            padding: 8px 12px;
             align-items: center;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
@@ -170,19 +171,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 32px;
+            padding: 20px 32px;
         }
         .thumbnail-box {
             width: 85%;
             max-width: 230px;
             aspect-ratio: 1;
-            border-radius: 24px;
+            border-radius: 24px ;
             overflow: hidden;
             background-color: #e2e8f0;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+          
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
             position: relative;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
@@ -322,12 +323,11 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 88%;
+            height: 87%;
             background:#F5DFEC;
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            border-top: 1px solid var(--card-border);
-            border-radius: 28px 28px 0 0;
+            border-radius: 28px 0px;
             z-index: 10;
             transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -417,10 +417,6 @@
             background: var(--popup-overlay);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -431,11 +427,12 @@
             visibility: visible;
         }
         .search-popup {
+margin-top:30px;
             width: 100%;
             max-width: 400px;
-            max-height: 75vh;
+            max-height: 77vh;
             background: #F5E7EF;
-            border-radius: 24px;
+            border-radius: 24px 0px;
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,255,255,0.1);
             display: flex;
@@ -873,7 +870,7 @@ z-index:0;
                 <i class="fa-solid fa-bars" id="menu-btn" title="Open Playlist"></i>
             </div>
             <div class="search-input-container">
-                <input type="text" id="playlist-url-input" placeholder="Search track inside playlist..">
+                <input type="text" id="playlist-url-input" placeholder="Search track">
                 <button id="load-playlist-btn">Find</button>
             </div>
         </div>
@@ -959,7 +956,7 @@ z-index:0;
     <script>
         // Default Playlist ID
         let currentPlaylistId = "PLTecol7El0xA-WvmfEyvHgRrNOw1bD3yL";
-        const defaultCoverImage = "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/simple-and-clean-album-cover-art-design-template-01c4f74eff5e6a6b8a96bbe80a14a09c_screen.jpg?ts=1581026216";
+        const defaultCoverImage = "https://imgh.in/host/xxxpv6";
 
         let player;
         let playlistTracks = [];
